@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 
-void main() {
+Future<void> main() async{
+  await dotenv.load();
   runApp(const MainApp());
 }
 
@@ -65,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _solveMathProblem(XFile image) async {
-    final url = Uri.parse("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAzFRJO_z0sNMIm4r6WcRGcuEZYaojcRqA");
+    final apiKey= dotenv.env['key'];
+    final url = Uri.parse("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=$apiKey");
     final headers = {
       'Content-Type': 'application/json',
     };
